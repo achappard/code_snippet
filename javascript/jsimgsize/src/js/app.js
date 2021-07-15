@@ -1,11 +1,16 @@
 import loadImage from 'async-image';
 
+// Image to retrieve dimensions
+const image_path = 'img/test.jpg';
+
+// Async function to retrieve a image
 const get_image_dimensions = async (path) => {
     const img = await loadImage(path);
     return img;
 };
 
-get_image_dimensions('img/test.jpg')
+
+get_image_dimensions(image_path)
     .then(img => {
         const{width, height} = img
         const filename = img.src.substring(img.src.lastIndexOf('/')+1);
@@ -15,5 +20,6 @@ get_image_dimensions('img/test.jpg')
     })
     .catch(err => {
         // Deal with the fact the chain failed
-        console.error("Erreur de chargement de l'image", err.message);
+        document.getElementById("card-title").innerHTML = 'Erreur';
+        document.getElementById("card-text").innerHTML = `Erreur lors du chargement de l'image <code>${image_path}</code>` ;
     });
